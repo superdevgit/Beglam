@@ -1,0 +1,1160 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+      "title": "REST API for Swagger Documentation",
+      "version": "1.0.0"
+    },
+    "schemes": ["http"],
+    "servers": [{ "url": "http://localhost:8000/" }],
+    "paths": {
+      "/api/user/signIn": {
+        "post": {
+          "tags": ["User"],
+          "summary": "signIn",
+          "description": "Send email and password.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SignInData"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Success",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UpdateUserData"
+                  }
+                }
+              }
+            },
+            "404": { "description": "Not found" },
+            "500": { "description": "Internal server error" }
+          }
+        }
+      },
+      "/api/user/addUser": {
+        "post": {
+          "tags": ["User"],
+          "summary": "Send user data to resgister",
+          "description": "Send all valus of user model as a json",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddUserData"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Success",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/AddUserData"
+                  }
+                }
+              }
+            },
+            "404": { "description": "Not found" },
+            "500": { "description": "Internal server error" }
+          }
+        }
+      },
+      "/api/user/getUsers": {
+        "get": {
+          "tags": ["User"],
+          "summary": "Get all users",
+          "description": "Get registered all users",
+          "requestBody": {
+            "required": false
+          },
+          "responses": {
+            "200":{"description":"successful operation","schema":{"type":"array","items":{"$ref":"#/components/schemas/UpdateUserData"}}},
+            "404": { "description": "Not found" },
+            "500": { "description": "Internal server error" }
+          }
+        }
+      },
+      "/api/user/getUser/{userId}": {
+        "get": {
+          "tags": ["User"],
+          "summary": "Get a user using id",
+          "description": "Get registered a user using id",
+          "parameters":[{"name":"userId","in":"path","description":"userId of user to return","required":true,"type":"integer","format":"int64"}],
+          "responses": {
+            "201": {
+              "description": "Success",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UpdateUserData"
+                  }
+                }
+              }
+            },
+            "404": { "description": "Not found" },
+            "500": { "description": "Internal server error" }
+          }
+        }
+      },
+      "/api/user/editUser": {
+        "put": {
+          "tags": ["User"],
+          "summary": "Send a user data to the server",
+          "description": "Send used data to the server and get updated user data.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateUserData"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Success",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UpdateUserData"
+                  }
+                }
+              }
+            },
+            "404": { "description": "Not found" },
+            "500": { "description": "Internal server error" }
+          }
+        }
+      },
+      "/api/user/deleteUser": {
+        "delete": {
+          "tags": ["User"],
+          "summary": "Send a text(userId) to the server",
+          "description": "Send a message(userId) to the server and delete user having userId.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserIdData"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Success",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/SuccessResult"
+                  }
+                }
+              }
+            },
+            "404": { "description": "Not found" },
+            "500": { "description": "Internal server error" }
+          }
+        }
+      },
+      "/api/profile/addProfile": {
+        "post": {
+          "tags": ["Profile"],
+          "summary": "Send profile to register",
+          "description": "Send all valus of profile model as a json",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddProfileData"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Success",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/AddProfileData"
+                  }
+                }
+              }
+            },
+            "404": { "description": "Not found" },
+            "500": { "description": "Internal server error" }
+          }
+        }
+      },
+      "/api/profile/getProfile/{profileId}": {
+        "get": {
+          "tags": ["Profile"],
+          "summary": "Get a profile using id",
+          "description": "Get registered a profile using id",
+          "parameters":[{"name":"profileId","in":"path","description":"profileId of profile to return","required":true,"type":"integer","format":"int64"}],
+          "responses": {
+            "201": {
+              "description": "Success",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UpdateProfileData"
+                  }
+                }
+              }
+            },
+            "404": { "description": "Not found" },
+            "500": { "description": "Internal server error" }
+          }
+        }
+      },
+      "/api/profile/getProfileByUser/{userId}": {
+        "get": {
+          "tags": ["Profile"],
+          "summary": "Get a profile using userId",
+          "description": "Get registered a profile using userId",
+          "parameters":[{"name":"userId","in":"path","description":"userId of profile to return","required":true,"type":"integer","format":"int64"}],
+          "responses": {
+            "201": {
+              "description": "Success",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UpdateProfileData"
+                  }
+                }
+              }
+            },
+            "404": { "description": "Not found" },
+            "500": { "description": "Internal server error" }
+          }
+        }
+      },
+      "/api/profile/editProfile": {
+        "put": {
+          "tags": ["Profile"],
+          "summary": "Send a profile data to the server",
+          "description": "Send profile data to the server and get updated user data.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateProfileData"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Success",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UpdateProfileData"
+                  }
+                }
+              }
+            },
+            "404": { "description": "Not found" },
+            "500": { "description": "Internal server error" }
+          }
+        }  
+      },
+      "/api/profile/deletProfile": {
+        "delete": {
+          "tags": ["Profile"],
+          "summary": "Send a text(profileId) to the server",
+          "description": "Send a message(profileId) to the server and delete user having profileId.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileIdData"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Success",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/SuccessResult"
+                  }
+                }
+              }
+            },
+            "404": { "description": "Not found" },
+            "500": { "description": "Internal server error" }
+          }
+        }
+      },
+      "/api/section/addSection": {
+        "post": {
+          "tags": ["Section"],
+          "summary": "Send section to register",
+          "description": "Send all valus of section model as a json",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddSectionData"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Success",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/AddSectionData"
+                  }
+                }
+              }
+            },
+            "404": { "description": "Not found" },
+            "500": { "description": "Internal server error" }
+          }
+        }
+      },
+      "/api/section/getSection/{sectionId}": {
+        "get": {
+          "tags": ["Section"],
+          "summary": "Get a section using id",
+          "description": "Get registered a section using id",
+          "parameters":[{"name":"sectionId","in":"path","description":"sectionId of section to return","required":true,"type":"integer","format":"int64"}],
+          "responses": {
+            "201": {
+              "description": "Success",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UpdateSectionData"
+                  }
+                }
+              }
+            },
+            "404": { "description": "Not found" },
+            "500": { "description": "Internal server error" }
+          }
+        }
+      },
+      "/api/section/editSection": {
+        "put": {
+          "tags": ["Section"],
+          "summary": "Send section to register",
+          "description": "Send all valus of section model as a json",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateSectionData"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Success",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UpdateSectionData"
+                  }
+                }
+              }
+            },
+            "404": { "description": "Not found" },
+            "500": { "description": "Internal server error" }
+          }
+        }
+      },
+      "/api/section/deleteSection": {
+        "delete": {
+          "tags": ["Section"],
+          "summary": "Send a text(sectionId) to the server",
+          "description": "Send a message(sectionId) to the server and delete action having sectionId.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SectionIdData"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Success",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/SuccessResult"
+                  }
+                }
+              }
+            },
+            "404": { "description": "Not found" },
+            "500": { "description": "Internal server error" }
+          }
+        }
+      },
+      "/api/service/addService": {
+        "post": {
+          "tags": ["Service"],
+          "summary": "Send server to register",
+          "description": "Send all valus of server model as a json",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddServiceData"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Success",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/AddServiceData"
+                  }
+                }
+              }
+            },
+            "404": { "description": "Not found" },
+            "500": { "description": "Internal server error" }
+          }
+        }
+      },
+      "/api/service/getService/{serviceId}": {
+        "get": {
+          "tags": ["Service"],
+          "summary": "Get a service using id",
+          "description": "Get registered a service using id",
+          "parameters":[{"name":"serviceId","in":"path","description":"serviceId of service to return","required":true,"type":"integer","format":"int64"}],
+          "responses": {
+            "201": {
+              "description": "Success",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UpdateServiceData"
+                  }
+                }
+              }
+            },
+            "404": { "description": "Not found" },
+            "500": { "description": "Internal server error" }
+          }
+        }
+      },
+      "/api/service/editService": {
+        "put": {
+          "tags": ["Service"],
+          "summary": "Send service to register",
+          "description": "Send all valus of service model as a json",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateServiceData"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Success",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UpdateServiceData"
+                  }
+                }
+              }
+            },
+            "404": { "description": "Not found" },
+            "500": { "description": "Internal server error" }
+          }
+        }
+      },
+      "/api/service/deleteService": {
+        "delete": {
+          "tags": ["Service"],
+          "summary": "Send a text(serviceId) to the server",
+          "description": "Send a message(serviceId) to the server and delete action having serviceId.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceIdData"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Success",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/SuccessResult"
+                  }
+                }
+              }
+            },
+            "404": { "description": "Not found" },
+            "500": { "description": "Internal server error" }
+          }
+        }
+      },
+      "/api/action/addAction": {
+        "post": {
+          "tags": ["Action"],
+          "summary": "Send action to register",
+          "description": "Send all valus of action model as a json",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddActionData"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Success",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/AddActionData"
+                  }
+                }
+              }
+            },
+            "404": { "description": "Not found" },
+            "500": { "description": "Internal server error" }
+          }
+        }
+      },
+      "/api/action/getAction/{actionId}": {
+        "get": {
+          "tags": ["Action"],
+          "summary": "Get a action using id",
+          "description": "Get registered a action using id",
+          "parameters":[{"name":"actionId","in":"path","description":"actionId of Action to return","required":true,"type":"integer","format":"int64"}],
+          "responses": {
+            "201": {
+              "description": "Success",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UpdateActionData"
+                  }
+                }
+              }
+            },
+            "404": { "description": "Not found" },
+            "500": { "description": "Internal server error" }
+          }
+        }
+      },
+      "/api/action/getActionClientId/{clientId}": {
+        "get": {
+          "tags": ["Action"],
+          "summary": "Get a action using clientId",
+          "description": "Get registered a action using clientId",
+          "parameters":[{"name":"clientId","in":"path","description":"clientId of Action to return","required":true,"type":"integer","format":"int64"}],
+          "responses": {
+            "201": {
+              "description": "Success",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UpdateActionData"
+                  }
+                }
+              }
+            },
+            "404": { "description": "Not found" },
+            "500": { "description": "Internal server error" }
+          }
+        }
+      },
+      "/api/action/getActionProfessionalId/{professionalId}": {
+        "get": {
+          "tags": ["Action"],
+          "summary": "Get a action using professionalId",
+          "description": "Get registered a action using professionalId",
+          "parameters":[{"name":"professionalId","in":"path","description":"professionalId of Action to return","required":true,"type":"integer","format":"int64"}],
+          "responses": {
+            "201": {
+              "description": "Success",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UpdateActionData"
+                  }
+                }
+              }
+            },
+            "404": { "description": "Not found" },
+            "500": { "description": "Internal server error" }
+          }
+        }
+      },
+      "/api/action/getActionBothId/{clientId}/{professionalId}": {
+        "get": {
+          "tags": ["Action"],
+          "summary": "Get a action using clientId and professionalId",
+          "description": "Get registered a action using clientId and professionalId",
+          "parameters":[{"name":"clientId","in":"path","description":"clientId of Action to return","required":true,"type":"integer","format":"int64"}, 
+              {"name":"professionalId","in":"path","description":"professionalId of Action to return","required":true,"type":"integer","format":"int64"}
+          ],
+          "responses": {
+            "201": {
+              "description": "Success",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UpdateActionData"
+                  }
+                }
+              }
+            },
+            "404": { "description": "Not found" },
+            "500": { "description": "Internal server error" }
+          }
+        }
+      },
+      "/api/action/editAction": {
+        "put": {
+          "tags": ["Action"],
+          "summary": "Send action to register",
+          "description": "Send all valus of action model as a json",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateActionData"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Success",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UpdateActionData"
+                  }
+                }
+              }
+            },
+            "404": { "description": "Not found" },
+            "500": { "description": "Internal server error" }
+          }
+        }
+      },
+      "/api/action/deleteAction": {
+        "delete": {
+          "tags": ["Action"],
+          "summary": "Send a text(actionId) to the server",
+          "description": "Send a message(actionId) to the server and delete action having actionId.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActionIdData"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Success",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/SuccessResult"
+                  }
+                }
+              }
+            },
+            "404": { "description": "Not found" },
+            "500": { "description": "Internal server error" }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "AddUserData": {
+          "properties": {
+            "data": {
+              "properties": {
+                "fullName": {
+                  "type": "string",
+                  "example": "Luis Muller"
+                },
+                "email": {
+                   "type": "string",
+                   "example": "mantadreamer07@gmail.com"
+                },
+                "telephone": {
+                    "type": "array",
+                    "example": ["19068471424", "18502528472"]
+                },
+                "password": {
+                    "type": "string",
+                    "example": "QWER!@#$qwer1234"
+                },
+                "country": {
+                    "type": "string",
+                    "example": "Germany"
+                },
+                "invitationCode": {
+                    "type": "string",
+                    "example": "6785"
+                },
+                "confirmationCode": {
+                    "type": "string",
+                    "example": "6789"
+                },
+                "userType": {
+                    "text": "string",
+                    "example": "client"
+                },
+                "mailVerified": {
+                    "text": "boolean",
+                    "example": "false"
+                }  
+              }
+            }
+          }
+        },
+        "SignInData": {
+          "required": ["text"],
+          "properties": {
+            "email": {
+              "type": "string",
+              "example": "mantadreamer07@gmail.com"
+            },
+            "password": {
+               "type": "string",
+               "example": "QWER!@#$qwer1234" 
+            }
+          }
+        },
+        "UpdateUserData": {
+            "properties": {
+                "data": {
+                   "properties": {
+                      "_id": {
+                        "type": "string",
+                        "example": "67812312310293810923198072738"
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "Luis Muller"
+                      },
+                      "email": {
+                        "type": "string",
+                        "example": "mantadreamer07@gmail.com"
+                      },
+                      "telephone": {
+                          "type": "array",
+                          "example": ["19068471424", "18502528472"]
+                      },
+                      "password": {
+                          "type": "string",
+                          "example": "QWER!@#$qwer1234"
+                      },
+                      "country": {
+                          "type": "string",
+                          "example": "Germany"
+                      },
+                      "invitationCode": {
+                          "type": "string",
+                          "example": "9122"
+                      },
+                      "confirmationCode": {
+                          "type": "string",
+                          "example": "9122"
+                      },
+                      "userType": {
+                          "text": "string",
+                          "example": "professional"
+                      },
+                      "mailVerified": {
+                          "text": "boolean",
+                          "example": "false"
+                      }
+                   }
+                }
+            }
+        },
+        "UserIdData": {
+            "properties": {
+                "userId": {
+                  "type": "string",
+                  "example": "67812312310293810923198072738"
+                }
+            }
+        },
+        "SuccessResult": {
+            "properties": {
+                "Id": {
+                  "type": "string",
+                  "example": "completed successfully"
+                }
+            }
+        },
+        "AddProfileData": {
+          "properties": {
+            "data": {
+              "properties": {
+                "description": {
+                  "type": "string",
+                  "example": "I'm a Luis Muller, I like to receive service. ..."
+                },
+                "address": {
+                   "type": "string",
+                   "example": "Hasenpfad residential"
+                },
+                "avatarUrl": {
+                    "type": "string",
+                    "example": "https://uploads/1.png" 
+                },
+                "serviceId": {
+                    "type": "string",
+                    "example": "628942234234236543466456"
+                },
+                "facebook": {
+                    "type": "string",
+                    "example": ""
+                },
+                "instagram": {
+                    "type": "string",
+                    "example": ""
+                },
+                "twitter": {
+                    "type": "string",
+                    "example": ""
+                },
+                "tictok": {
+                    "type": "string",
+                    "example": ""
+                },
+                "pinterest": {
+                    "type": "string",
+                    "example": ""
+                },
+                "userId": {
+                    "type": "string",
+                    "example": "679604909829034808920834"
+                } 
+              }
+            }
+          }
+        },
+        "UpdateProfileData": {
+          "properties": {
+             "data": {
+               "properties": {
+                "_id": {
+                  "type": "string",
+                  "example": "67812312310293810923198072738"
+                },
+                "description": {
+                  "type": "string",
+                  "example": "I'm a Luis Muller, I like to receive service. ..."
+                },
+                "address": {
+                   "type": "string",
+                   "example": "Hasenpfad residential"
+                },
+                "avatarUrl": {
+                    "type": "string",
+                    "example": "https://uploads/1.png" 
+                },
+                "serviceId": {
+                    "type": "string",
+                    "example": "628942234234236543466456"
+                },
+                "facebook": {
+                  "type": "string",
+                  "example": ""
+                },
+                "instagram": {
+                    "type": "string",
+                    "example": ""
+                },
+                "twitter": {
+                    "type": "string",
+                    "example": ""
+                },
+                "tictok": {
+                    "type": "string",
+                    "example": ""
+                },
+                "pinterest": {
+                    "type": "string",
+                    "example": ""
+                },
+                "userId": {
+                    "type": "string",
+                    "example": "679604909829034808920834"
+                }    
+               }
+             }
+          }
+        },
+        "ProfileIdData": {
+          "properties": {
+              "profileId": {
+                "type": "string",
+                "example": "67812312310293810923198072738"
+              }
+          }
+        },
+        "AddSectionData": {
+          "properties": {
+             "data": {
+                "properties": {
+                  "sectionName": {
+                    "type": "string",
+                    "example": "Coloring"
+                  },
+                  "categoryNo": {
+                    "type": "number",
+                    "example": 3
+                  }
+                }
+             }
+          }
+        },
+        "UpdateSectionData": {
+          "properties": {
+             "data": {
+               "properties": {
+                "_id":{
+                  "type": "string",
+                  "example": "689234234234234234234"
+                },
+                "sectionName": {
+                  "type": "string",
+                  "example": "Coloring"
+                },
+                "categoryNo": {
+                  "type": "number",
+                  "example": 3
+                }
+               }
+             }
+          }
+        },
+        "SectionIdData": {
+          "properties": {
+            "sectionId": {
+              "type": "string",
+              "example": "67812312310293810923198072738"
+            }
+        }
+        },
+        "AddServiceData": {
+          "properties": {
+            "data": {
+              "properties": {
+                "serviceDescription": {
+                  "type": "string",
+                  "example": "Global Coloring"
+                },
+                "servicePrice": {
+                  "type": "number",
+                  "example": 9
+                },
+                "duration": {
+                  "type": "number",
+                  "example": 40
+                },
+                "sectionId": {
+                  "type": "string",
+                  "example": "89234089237280348972312"
+                },
+                "categoryNo": {
+                  "type": "number",
+                  "example": 1
+                } 
+              }
+            }
+          }
+        },
+        "UpdateServiceData": {
+          "properties": {
+            "data": {
+              "properties": {
+                "_id": {
+                  "type": "string",
+                  "example": "89087129873198273918123"
+                },
+                "serviceDescription": {
+                  "type": "string",
+                  "example": "Global Coloring"
+                },
+                "servicePrice": {
+                  "type": "number",
+                  "example": 9
+                },
+                "duration": {
+                  "type": "number",
+                  "example": 40
+                },
+                "sectionId": {
+                  "type": "string",
+                  "categoryNo": "2"
+                } 
+              }
+            }
+          }
+        },
+        "ServiceIdData": {
+          "properties": {
+            "serviceId": {
+              "type": "string",
+              "example": "67812312310293810923198072738"
+            }
+        }
+        },
+        "AddActionData": {
+          "properties": {
+            "data": {
+              "properties": {
+                "serviceId": {
+                  "type": "string",
+                  "example": "580294823904234234234234"
+                },
+                "clientId": {
+                  "type": "string",
+                  "example": "890234890322034234234234"
+                },
+                "professionalId": {
+                  "type": "string",
+                  "example": "089430543853045345345345"
+                },
+                "status": {
+                  "type": "string",
+                  "example": "Accept"
+                },
+                "acceptDate": {
+                  "type": "number",
+                  "example": "168909890" 
+                }
+              }
+            }
+          }
+        },
+        "UpdateActionData": {
+          "properties": {
+            "data": {
+               "properties": {
+                "_id": {
+                  "type": "string",
+                  "example": "580294823904234234234234"
+                },
+                "serviceId": {
+                  "type": "string",
+                  "example": "580294823904234234234234"
+                },
+                "clientId": {
+                  "type": "string",
+                  "example": "890234890322034234234234"
+                },
+                "professionalId": {
+                  "type": "string",
+                  "example": "089430543853045345345345"
+                },
+                "status": {
+                  "type": "string",
+                  "example": "Accept"
+                },
+                "acceptDate": {
+                  "type": "number",
+                  "example": "168909890" 
+                }
+               }
+            }
+          }
+        },
+        "ActionIdData":{
+          "properties": {
+            "actionId": {
+              "type": "string",
+              "example": "67812312310293810923198072738"
+            }
+          }
+        },
+        "ClientIdData":{
+          "properties": {
+            "cleintId": {
+              "type": "string",
+              "example": "67812312310293810923198072738"
+            }
+          }      
+        },
+        "ProfessionalIdData":{
+          "properties": {
+            "professionalId": {
+              "type": "string",
+              "example": "67812312310293810923198072738"
+            }
+          }      
+        },
+        "BothIdData":{
+          "properties": {
+            "cleintId": {
+              "type": "string",
+              "example": "67812312310293810923198072738"
+            },
+            "professionalId": {
+              "type": "string",
+              "example": "67812312310293810923198072738"
+            }
+          }      
+        } 
+      }
+    }
+  }
+     
