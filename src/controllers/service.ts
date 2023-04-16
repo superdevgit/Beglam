@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import { BAD_REQUEST, BACKEND_ERROR } from '../config'
 import Service from '../services/service'
 
-const getService = async (req: Request, res: Response) => {
+const getService = async (req, res) => {
     const { serviceId } = req.params;
     try{
         const result = await Service.findOneByID(serviceId); 
@@ -12,7 +12,7 @@ const getService = async (req: Request, res: Response) => {
     }
 }
 
-const addService = async (req: Request, res: Response) => {
+const addService = async (req, res) => {
     try {
         const { data } = req.body;
 
@@ -28,7 +28,7 @@ const addService = async (req: Request, res: Response) => {
     }
 }
 
-const editService = async (req: Request, res: Response) => {
+const editService = async (req, res) => {
     try {
         const { data } = req.body;
 
@@ -44,7 +44,7 @@ const editService = async (req: Request, res: Response) => {
     }
 }
 
-const deleteService = async (req: Request, res: Response) => {
+const deleteService = async (req, res) => {
     try {
         const { serviceId } = req.body;
 

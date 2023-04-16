@@ -4,7 +4,7 @@ import md5 from 'md5';
 import userService from '../services/user';
 import jwt from 'jsonwebtoken';
 
-const getUsers = async (req: Request, res: Response) => {
+const getUsers = async (req, res) => {
     try {
         const params = req.body.params;
         if (params === undefined) {
@@ -21,7 +21,7 @@ const getUsers = async (req: Request, res: Response) => {
     }
 }
 
-const getUser = async(req: Request, res: Response) => {
+const getUser = async(req, res) => {
     try{
         const {userId}: any = req.params;
         if (userId === undefined) {
@@ -34,7 +34,7 @@ const getUser = async(req: Request, res: Response) => {
     }
 }
 
-const signIn = async (req: Request, res: Response) => {
+const signIn = async (req, res) => {
     if(req.body === undefined){
         return res.status(400).json(BAD_REQUEST);
     }
@@ -56,7 +56,7 @@ const signIn = async (req: Request, res: Response) => {
                 accessToken,
                 refreshToken
             }
-            return res.json({ success: true, message: 'Success', data: response });
+            return res.json({ success: true, message: 'Success', data });
         }
         else{
             return res.status(400).json(BAD_REQUEST);
@@ -66,7 +66,7 @@ const signIn = async (req: Request, res: Response) => {
     }
 }
 
-const checkJwt = async(req: Request, res: Response) => {
+const checkJwt = async(req, res) => {
     try{
         const {token} = req.body;
         let jwt_res: any
@@ -94,7 +94,7 @@ const checkJwt = async(req: Request, res: Response) => {
     }
 }
 
-const addUser = async (req: Request, res: Response) => {
+const addUser = async (req, res) => {
     try {
         const { data } = req.body;
         if (data === undefined) {
@@ -109,7 +109,7 @@ const addUser = async (req: Request, res: Response) => {
     }
 }
 
-const sendMail = async (req: Request, res: Response) => {
+const sendMail = async (req, res) => {
     try{
        const {userId} = req.body;
        if(userId === undefined) {
@@ -122,7 +122,7 @@ const sendMail = async (req: Request, res: Response) => {
     } 
 }
 
-const verify = async (req: Request, res: Response) => {
+const verify = async (req, res) => {
     try{
         const {userId, verifyCode} = req.params;
         const result = userService.verify(userId, verifyCode);
@@ -131,7 +131,7 @@ const verify = async (req: Request, res: Response) => {
     }
 }
 
-const editUser = async (req: Request, res: Response) => {
+const editUser = async (req, res) => {
     try {
         const { data } = req.body;
 
@@ -147,7 +147,7 @@ const editUser = async (req: Request, res: Response) => {
     }
 }
 
-const deleteUser = async (req: Request, res: Response) => {
+const deleteUser = async (req, res) => {
     try {
         const { userId } = req.body;
         

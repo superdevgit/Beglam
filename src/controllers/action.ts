@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import { BAD_REQUEST, BACKEND_ERROR } from '../config'
 import Action from '../services/action'
 
-const getAction = async (req: Request, res: Response) => {
+const getAction = async (req, res) => {
     const { actionId } = req.params;
     try{
         if(actionId === undefined) {
@@ -15,7 +15,7 @@ const getAction = async (req: Request, res: Response) => {
     }
 }
 
-const getActionClientId = async (req: Request, res: Response) => {
+const getActionClientId = async (req, res) => {
     const { clientId } = req.params;
     try{
         if(clientId === undefined) {
@@ -28,7 +28,7 @@ const getActionClientId = async (req: Request, res: Response) => {
     }
 }
 
-const getActionProfessionalId = async (req: Request, res: Response) => {
+const getActionProfessionalId = async (req, res) => {
     const { professionalId } = req.params;
     try{
         if(professionalId === undefined) {
@@ -41,7 +41,7 @@ const getActionProfessionalId = async (req: Request, res: Response) => {
     }
 }
 
-const getActionBothId = async (req: Request, res: Response) => {
+const getActionBothId = async (req, res) => {
     const { clientId, professionalId } = req.params;
     try{
         if(clientId === undefined || professionalId === undefined) {
@@ -54,7 +54,7 @@ const getActionBothId = async (req: Request, res: Response) => {
     }
 }
 
-const addAction = async (req: Request, res: Response) => {
+const addAction = async (req, res) => {
     try {
         const { data } = req.body;
 
@@ -70,7 +70,7 @@ const addAction = async (req: Request, res: Response) => {
     }
 }
 
-const editAction = async (req: Request, res: Response) => {
+const editAction = async (req, res) => {
     try {
         const { data } = req.body;
 
@@ -86,7 +86,7 @@ const editAction = async (req: Request, res: Response) => {
     }
 }
 
-const deleteAction = async (req: Request, res: Response) => {
+const deleteAction = async (req, res) => {
     try {
         const { actionId } = req.body;
 

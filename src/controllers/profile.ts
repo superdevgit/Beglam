@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import { BAD_REQUEST, BACKEND_ERROR } from '../config'
 import profileService from '../services/profile'
 
-const getProfile = async (req: Request, res: Response) => {
+const getProfile = async (req, res) => {
     const { profileId } = req.params;
     try{
         if(profileId === undefined) {
@@ -16,7 +16,7 @@ const getProfile = async (req: Request, res: Response) => {
     }
 }
 
-const getProfileByUserId = async(req: Request, res: Response) => {
+const getProfileByUserId = async(req, res) => {
     const { userId } = req.params;
     try{
         if(userId === undefined) {
@@ -29,7 +29,7 @@ const getProfileByUserId = async(req: Request, res: Response) => {
     }
 }
 
-const addProfile = async (req: Request, res: Response) => {
+const addProfile = async (req, res) => {
     try {
         const { data } = req.body;
 
@@ -45,7 +45,7 @@ const addProfile = async (req: Request, res: Response) => {
     }
 }
 
-const editProfile = async (req: Request, res: Response) => {
+const editProfile = async (req, res) => {
     try {
         const { data } = req.body;
 
@@ -61,7 +61,7 @@ const editProfile = async (req: Request, res: Response) => {
     }
 }
 
-const deleteProfile = async (req: Request, res: Response) => {
+const deleteProfile = async (req, res) => {
     try {
         const { profileId } = req.body;
 
