@@ -9,7 +9,7 @@ import actionRoutes from './action';
 import sectionRoutes from './section';
 
 // Backend Test
-router.get('/test', (req, res) =>
+router.get('/test', (req: Request, res: Response) =>
   res.send('OK')
 )
 

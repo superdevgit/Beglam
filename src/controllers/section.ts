@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import { BAD_REQUEST, BACKEND_ERROR } from '../config'
 import Section from '../services/section'
 
-const getSection = async (req, res) => {
+const getSection = async (req: Request, res: Response) => {
     const { sectionId } = req.params;
     try{
         if(sectionId === undefined){
@@ -15,7 +15,7 @@ const getSection = async (req, res) => {
     }
 }
 
-const addSection = async (req, res) => {
+const addSection = async (req: Request, res: Response) => {
     try {
         const { data } = req.body;
         if (data === undefined) {
@@ -28,7 +28,7 @@ const addSection = async (req, res) => {
     }
 }
 
-const editSection = async (req, res) => {
+const editSection = async (req: Request, res: Response) => {
     try {
         const { data } = req.body;
         if (data === undefined) {
@@ -41,7 +41,7 @@ const editSection = async (req, res) => {
     }
 }
 
-const deleteSection = async (req, res) => {
+const deleteSection = async (req: Request, res: Response) => {
     try {
         const { sectionId } = req.body;
         if (sectionId === undefined) {
