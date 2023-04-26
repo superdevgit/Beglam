@@ -61,7 +61,10 @@ const addAction = async (req: Request, res: Response) => {
         if (data === undefined) {
             return res.status(400).json(BAD_REQUEST);
         }
-
+        const validation = await Action.actionValidate(data);
+        if (!validation) {
+            return res.status(400).json(BAD_REQUEST);
+        }
         const result = await Action.createOne(data);
 
         return res.json({ success: true, message: 'Success', data: result });
@@ -77,7 +80,10 @@ const editAction = async (req: Request, res: Response) => {
         if (data === undefined) {
             return res.status(400).json(BAD_REQUEST);
         }
-
+        const validation = await Action.actionValidate(data);
+        if (!validation) {
+            return res.status(400).json(BAD_REQUEST);
+        }
         const result = await Action.updateOne(data);
 
         return res.json({ success: true, message: 'Success', data: result });

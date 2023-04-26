@@ -1,3 +1,4 @@
+import { dateRegex, idRegex } from '../config'
 import { Action, IAction } from '../models/action'
 
 const findOneByID = async (_id: string) => {
@@ -48,11 +49,24 @@ const deleteOne = async (_id: string) => {
     return result
 }
 
+const actionValidate = async(data: any) => {
+    if(idRegex.test(data.serviceId) && idRegex.test(data.clientId) && idRegex.test(data.professionalId) && dateRegex.test(data.acceptDate)){
+        if(data.status == "Listen" || data.status == "Accept" || data.status == "Refuse" || data.status == "Complete"){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    return false;
+}
+
 export default {
     findOneByID,
     findAllByClientID,
     findAllByProfessionalID,
     findAllByBothID,
+    actionValidate,
     createOne,
     updateOne,
     deleteOne

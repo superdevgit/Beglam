@@ -7,6 +7,7 @@ var cors = require('cors')
 
 router.get('/getUsers', ctrl.getUsers)
 router.get('/getUser/:userId', ctrl.getUser)
+router.get('/getProfileUsers', ctrl.getProfileUsers)
 router.post('/signIn', ctrl.signIn)
 router.post('/checkJwt', ctrl.checkJwt)
 router.post('/addUser', cors(), ctrl.addUser)

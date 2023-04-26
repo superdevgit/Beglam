@@ -5,7 +5,7 @@
       "version": "1.0.0"
     },
     "schemes": ["http"],
-    "servers": [{ "url": "http://localhost:8000/" }],
+    "servers": [{ "url": "http://localhost:5000/" }],
     "paths": {
       "/api/user/signIn": {
         "post": {
@@ -101,6 +101,21 @@
                 }
               }
             },
+            "404": { "description": "Not found" },
+            "500": { "description": "Internal server error" }
+          }
+        }
+      },
+      "/api/user/getProfileUsers": {
+        "get": {
+          "tags": ["User"],
+          "summary": "Get all professional users",
+          "description": "Get registered all professional users",
+          "requestBody": {
+            "required": false
+          },
+          "responses": {
+            "200":{"description":"successful operation","schema":{"type":"array","items":{"$ref":"#/components/schemas/UpdateUserData"}}},
             "404": { "description": "Not found" },
             "500": { "description": "Internal server error" }
           }
@@ -539,7 +554,7 @@
         "post": {
           "tags": ["Action"],
           "summary": "Send action to register",
-          "description": "Send all valus of action model as a json",
+          "description": "Send all values of action model as a json. ex: Accept, Listen, Refuse,Complete",
           "requestBody": {
             "required": true,
             "content": {
@@ -830,7 +845,7 @@
             "properties": {
                 "userId": {
                   "type": "string",
-                  "example": "67812312310293810923198072738"
+                  "example": "64461bb2f0919ddbb48e9118"
                 }
             }
         },

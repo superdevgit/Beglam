@@ -24,11 +24,11 @@ const ProfileSchema: Schema = new Schema({
     },
     avatarUrl: {
         type: String,
-        required: true
+        required: false
     },
     serviceId: {    // only professional
         type: String,
-        required: true
+        required: false
     },
     facebook: {
         type: String,

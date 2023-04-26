@@ -21,6 +21,11 @@ const addSection = async (req: Request, res: Response) => {
         if (data === undefined) {
             return res.status(400).json(BAD_REQUEST);
         }
+        const sections = await Section.findBySectionName(data.sectionName)
+        const validation = await Section.sectionValidate(data);
+        if(sections.length > 0 || !validation){
+            return res.status(400).json(BAD_REQUEST);
+        }
         const result = await Section.createOne(data);
         return res.json({ success: true, message: 'Success', data: result });
     } catch (e) {
@@ -32,6 +37,10 @@ const editSection = async (req: Request, res: Response) => {
     try {
         const { data } = req.body;
         if (data === undefined) {
+            return res.status(400).json(BAD_REQUEST);
+        }
+        const validation = await Section.sectionValidate(data);
+        if(!validation){
             return res.status(400).json(BAD_REQUEST);
         }
         const result = await Section.updateOne(data);

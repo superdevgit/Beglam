@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { BAD_REQUEST, BACKEND_ERROR, JWT_EXPIREED_ERROR, jwtConfig } from '../config';
+import { BAD_REQUEST, BACKEND_ERROR, JWT_EXPIREED_ERROR, jwtConfig, BAD_PASSWORD_REQUEST, BAD_EMAIL_REQUEST, WEAK_PASS_REQUEST, EMAIL_EXIST_REQUEST } from '../config';
 import md5 from 'md5';
 import userService from '../services/user';
 import jwt from 'jsonwebtoken';
@@ -34,12 +34,20 @@ const getUser = async(req: Request, res: Response) => {
     }
 }
 
+const getProfileUsers =  async(req: Request, res: Response) => {
+    try{
+        const result = await userService.findProfessionalUsers();
+        return res.json({ success: true, message: 'Success', data: result });
+    } catch(e) {
+        return res.status(500).json(BACKEND_ERROR);
+    }
+}
+
 const signIn = async (req: Request, res: Response) => {
     if(req.body === undefined){
         return res.status(400).json(BAD_REQUEST);
     }
     const { email, password } = req.body;
-    
     try{
         const usrList = await userService.findByEmailAndPass(email, md5(password));
         if(usrList?.length != 0){
@@ -59,9 +67,15 @@ const signIn = async (req: Request, res: Response) => {
             return res.json({ success: true, message: 'Success', data: response });
         }
         else{
-            return res.status(400).json(BAD_REQUEST);
+            const usrs = await userService.findByEmail(email);
+            if(usrs.length > 0){
+                return res.status(400).json(BAD_PASSWORD_REQUEST)
+            }
+            else{
+                return res.status(400).json(BAD_EMAIL_REQUEST);
+            }
         }
-    } catch(e) {
+    } catch(e) { 
         return res.status(500).json(BACKEND_ERROR);
     }
 }
@@ -100,7 +114,25 @@ const addUser = async (req: Request, res: Response) => {
         if (data === undefined) {
             return res.status(400).json(BAD_REQUEST);
         }
-        
+        const users = await userService.findByEmail(data.email);
+        const validation = await userService.validationUser(data);
+
+        if (users.length > 0) {
+            return res.status(400).json(EMAIL_EXIST_REQUEST);
+        }     
+        if(validation == 0)
+        {
+            return res.status(400).json(BAD_EMAIL_REQUEST);
+        }
+        if(validation == 2)
+        {
+            return res.status(400).json(BAD_REQUEST);
+        }
+        if(validation == 3)
+        {
+            return res.status(400).json(WEAK_PASS_REQUEST);
+        }
+
         data.password = md5(data.password);
         const result = await userService.createOne(data);
         return res.json({ success: true, message: 'Success', data: result });
@@ -134,9 +166,18 @@ const verify = async (req: Request, res: Response) => {
 const editUser = async (req: Request, res: Response) => {
     try {
         const { data } = req.body;
-
         if (data === undefined) {
             return res.status(400).json(BAD_REQUEST);
+        }
+        const validation = await userService.validationUser(data);
+
+        if(validation == 2)
+        {
+            return res.status(400).json(BAD_REQUEST);
+        }
+        if(validation == 3)
+        {
+            return res.status(400).json(WEAK_PASS_REQUEST);
         }
 
         const result = await userService.updateOne(data);
@@ -166,6 +207,7 @@ const deleteUser = async (req: Request, res: Response) => {
 export default {
     getUsers,
     getUser,
+    getProfileUsers,
     signIn,
     checkJwt,
     addUser,

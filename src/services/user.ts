@@ -1,4 +1,6 @@
+import { emailRegex, passwordRegex } from '../config';
 import { User, IUser } from '../models/user'
+
 var sendgrid = require('@sendgrid/mail');
 const sgMail = require('@sendgrid/mail');
 sgMail.setApiKey('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');
@@ -8,6 +10,11 @@ const findOneByID = async (_id: string) => {
         _id: _id
     })
     return result
+}
+
+const findByEmail = async (email: string) => {
+    const result: IUser[] = await User.find({email: email})
+    return result;
 }
 
 const findByEmailAndPass = async(email: string, password: string) => {
@@ -40,13 +47,18 @@ const findByFilter = async (filter: any) => {
     return { rows, total }
 }
 
+
 const findAll = async () => {
     const result: IUser[] = await User.find({})
     return result
 }
 
+const findProfessionalUsers = async() => {
+    const result: IUser[] = await User.find({userType: "professional"}) 
+    return result
+}
+
 const createOne = async (data: IUser) => {
-    console.log("serviceData", data);
 
     const code = Math.round((Math.random() * 10000)).toString();
     data.confirmationCode = code;
@@ -111,11 +123,35 @@ const deleteOne = async (_id: string) => {
     return result
 }
 
+const validationUser = async(data: any) => {
+    if(emailRegex.test(data.email))  
+    {
+        if(passwordRegex.test(data.password))
+        {
+            if(data.userType == "client" || data.userType == "professional")
+            {
+                /*
+                for(let i = 0; i < data.telephone.length; i++){
+                    if(!phonenumberRegex.test(data.telephone[i])) return false
+                }
+                */
+                return 1
+            }
+            return 2
+        }
+        return 3
+    }
+    return 0
+}
+
 export default {
     findOneByID,
+    findByEmail,
     findByEmailAndPass,
     findByFilter,
     findAll,
+    findProfessionalUsers,
+    validationUser,
     createOne,
     sendMail,
     verify,

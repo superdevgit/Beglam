@@ -1,3 +1,4 @@
+import { idRegex } from '../config'
 import { Service, IService } from '../models/service'
 
 const findOneByID = async (_id: string) => {
@@ -26,8 +27,16 @@ const deleteOne = async (_id: string) => {
     return result
 }
 
+const serviceValidate = async(data: any) => {
+    if(idRegex.test(data.sectionId)){
+        return true;
+    }
+    return false;
+}
+
 export default {
     findOneByID,
+    serviceValidate,
     createOne,
     updateOne,
     deleteOne

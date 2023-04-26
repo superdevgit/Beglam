@@ -7,6 +7,11 @@ const findOneByID = async (_id: string) => {
     return result
 }
 
+const findBySectionName = async (sectName: string) =>{
+    const result: ISection[] = await Section.find({sectionName: sectName})
+    return result;
+}
+
 const createOne = async (data: ISection) => {
     const result: ISection = await Section.create(data)
     return result
@@ -26,8 +31,19 @@ const deleteOne = async (_id: string) => {
     return result
 }
 
+const sectionValidate = async (data: any) => {
+    console.log("data", data);
+    if(data.sectionName == "" || data.categoryNo == 0)
+    {
+        return false;
+    }
+    return true;
+}
+
 export default {
     findOneByID,
+    findBySectionName,
+    sectionValidate,
     createOne,
     updateOne,
     deleteOne

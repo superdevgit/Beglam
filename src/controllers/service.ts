@@ -19,9 +19,11 @@ const addService = async (req: Request, res: Response) => {
         if (data === undefined) {
             return res.status(400).json(BAD_REQUEST);
         }
-        console.log("data", data);
+        const validation = await Service.serviceValidate(data);
+        if(!validation){
+            return res.status(400).json(BAD_REQUEST);
+        }
         const result = await Service.createOne(data);
-        
         return res.json({ success: true, message: 'Success', data: result });
     } catch (e) {
         return res.status(500).json(BACKEND_ERROR);
@@ -35,7 +37,10 @@ const editService = async (req: Request, res: Response) => {
         if (data === undefined) {
             return res.status(400).json(BAD_REQUEST);
         }
-
+        const validation = await Service.serviceValidate(data);
+        if(!validation){
+            return res.status(400).json(BAD_REQUEST);
+        }
         const result = await Service.updateOne(data);
 
         return res.json({ success: true, message: 'Success', data: result });
